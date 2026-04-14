@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription Factor Chromatin Loops Database</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 3px solid #2c5aa0;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #2c5aa0;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: #2c5aa0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .panel {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c5aa0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-title .count {
+            background: #2c5aa0;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            border-left: 3px solid #2c5aa0;
+            background: white;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+
+        /* Filter Section */
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            color: #6c757d;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-size: 13px;
+            background: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
+        }
+
+        .filter-group input[type="text"] {
+            width: 200px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3f73;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #2c5aa0;
+            border: 1px solid #2c5aa0;
+        }
+
+        .btn-outline:hover {
+            background: #e7f1ff;
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 11px;
+        }
+
+        .btn-download {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #1e7e34;
+        }
+
+        /* TF Chips */
+        .tf-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .tf-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .tf-chip:hover {
+            border-color: #2c5aa0;
+        }
+
+        .tf-chip.active {
+            background: #e7f1ff;
+            border-color: #2c5aa0;
+        }
+
+        .tf-chip .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tf-chip .tf-count {
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table th.sortable {
+            cursor: pointer;
+        }
+
+        .data-table th.sortable:hover {
+            background: #e9ecef;
+        }
+
+        .data-table th .sort-icon {
+            margin-left: 5px;
+            color: #adb5bd;
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9ff;
+        }
+
+        .tf-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .cell-line-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .encode-id {
+            font-family: "Monaco", "Menlo", monospace;
+            font-size: 11px;
+            color: #6c757d;
+        }
+
+        .file-size {
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .pagination button {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: #2c5aa0;
+            background: #f8f9ff;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            font-size: 12px;
+            color: #6c757d;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .page-size-select {
+            padding: 4px 8px;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 15px;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2c5aa0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Bulk Download */
+        .bulk-download-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: #e7f1ff;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .bulk-download-bar .selected-count {
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+
+        .select-all-checkbox {
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        footer a {
+            color: #2c5aa0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+            }
+
+            .filter-row {
+                flex-direction: column;
+            }
+
+            .filter-group input[type="text"] {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 11px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div>Loading dataset index...</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Transcription Factor Chromatin Loop Database</h1>
+            <div class="subtitle">Interactive Browser for HiChIP-derived Chromatin Interactions</div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Data Download</a>
+                <a href="igv.html">IGV Browser</a>
+                <a href="heatmap.html">Heatmap Browser</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Statistics -->
+            <div class="panel">
+                <div class="panel-title">Dataset Overview</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-total">-</div>
+                        <div class="stat-label">Total Datasets</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-tfs">-</div>
+                        <div class="stat-label">Transcription Factors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-celllines">-</div>
+                        <div class="stat-label">Cell Lines</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-filtered">-</div>
+                        <div class="stat-label">Filtered Results</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="panel">
+                <div class="panel-title">Filter Datasets</div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Transcription Factor</label>
+                        <select id="tf-filter">
+                            <option value="">All TFs</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Cell Line / Tissue</label>
+                        <select id="cellline-filter">
+                            <option value="">All Cell Lines</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input type="text" id="search-input" placeholder="Search by name or ENCODE ID...">
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="clearFilters()">Clear Filters</button>
+                </div>
+                <div class="tf-filters" id="tf-chips"></div>
+            </div>
+
+            <!-- Bulk Download Bar -->
+            <div class="bulk-download-bar" id="bulk-bar" style="display: none;">
+                <input type="checkbox" id="select-all" class="select-all-checkbox" onchange="toggleSelectAll(this.checked)">
+                <span>Selected: <span class="selected-count" id="selected-count">0</span> files</span>
+                <button class="btn btn-download btn-sm" onclick="downloadSelected()">Download Selected</button>
+                <button class="btn btn-outline btn-sm" onclick="clearSelection()">Clear Selection</button>
+            </div>
+
+            <!-- Data Table -->
+            <div class="panel" style="padding: 0; overflow: hidden;">
+                <table class="data-table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" id="header-checkbox" onchange="toggleSelectAll(this.checked)">
+                            </th>
+                            <th class="sortable" onclick="sortBy('tf')">TF <span class="sort-icon">↕</span></th>
+                            <th class="sortable" onclick="sortBy('cellLine')">Cell Line <span class="sort-icon">↕</span></th>
+                            <th class="sortable" onclick="sortBy('encodeId')">ENCODE ID <span class="sort-icon">↕</span></th>
+                            <th style="width: 120px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <button onclick="goToPage(1)" id="btn-first">First</button>
+                    <button onclick="goToPage(currentPage - 1)" id="btn-prev">Prev</button>
+                    <span class="page-info" id="page-info">Page 1 of 1</span>
+                    <button onclick="goToPage(currentPage + 1)" id="btn-next">Next</button>
+                    <button onclick="goToPage(totalPages)" id="btn-last">Last</button>
+                    <select class="page-size-select" id="page-size" onchange="changePageSize(this.value)">
+                        <option value="25">25 per page</option>
+                        <option value="50" selected>50 per page</option>
+                        <option value="100">100 per page</option>
+                        <option value="200">200 per page</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <strong>Transcription Factor Chromatin Loop Database</strong> |
+            Processed using FitHiChIP algorithm |
+            Data from <a href="https://www.encodeproject.org/" target="_blank">ENCODE Project</a>
+        </p>
+    </footer>
+
+    <script>
+        // Global state
+        let allSamples = [];
+        let filteredSamples = [];
+        let selectedSamples = new Set();
+
+        // Pagination
+        let currentPage = 1;
+        let pageSize = 50;
+        let totalPages = 1;
+
+        // Sorting
+        let sortField = 'tf';
+        let sortDirection = 'asc';
+
+        // TF colors
+        const TF_COLORS = {
+            'CTCF': '#0066cc',
+            'Rad21': '#28a745',
+            'KLF4': '#dc3545',
+            'OCT4': '#fd7e14',
+            'NANOG': '#6f42c1'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await loadDataIndex();
+                buildFilters();
+                buildTFChips();
+                applyFilters();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Initialization failed:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="loading-content">
+                        <div style="color: #dc3545;">Error: ${error.message}</div>
+                    </div>
+                `;
+            }
+        });
+
+        // Load data index
+        async function loadDataIndex() {
+            const ossUrl = 'https://tf-loops.oss-cn-hangzhou.aliyuncs.com/oss_upload_folder/loops/file_index.json';
+            const localUrl = 'file_index.json';
+
+            let indexData = null;
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const response = await fetch(ossUrl, { cache: 'no-store', signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (response.ok) indexData = await response.json();
+            } catch (e) {
+                console.warn('OSS load failed:', e.message);
+            }
+
+            if (!indexData) {
+                try {
+                    const response = await fetch(localUrl);
+                    if (response.ok) indexData = await response.json();
+                } catch (e) {
+                    console.warn('Local load failed:', e.message);
+                }
+            }
+
+            if (!indexData) throw new Error('Failed to load file_index.json');
+
+            // Flatten to array
+            allSamples = [];
+            Object.keys(indexData.data).forEach(tf => {
+                Object.keys(indexData.data[tf]).forEach(sampleId => {
+                    const cellLine = sampleId.replace(/_ENCFF[A-Z0-9]+$/, '');
+                    const encodeId = sampleId.match(/ENCFF[A-Z0-9]+$/)?.[0] || sampleId;
+
+                    allSamples.push({
+                        id: `${tf}_${sampleId}`,
+                        tf: tf,
+                        sampleId: sampleId,
+                        cellLine: cellLine,
+                        encodeId: encodeId,
+                        downloadUrl: indexData.data[tf][sampleId].download_url
+                    });
+                });
+            });
+
+            // Update statistics
+            document.getElementById('stat-total').textContent = allSamples.length;
+            document.getElementById('stat-tfs').textContent = new Set(allSamples.map(s => s.tf)).size;
+            document.getElementById('stat-celllines').textContent = new Set(allSamples.map(s => s.cellLine)).size;
+
+            console.log(`Loaded ${allSamples.length} samples`);
+        }
+
+        // Build filter dropdowns
+        function buildFilters() {
+            const tfFilter = document.getElementById('tf-filter');
+            const cellLineFilter = document.getElementById('cellline-filter');
+
+            const tfs = [...new Set(allSamples.map(s => s.tf))].sort();
+            const cellLines = [...new Set(allSamples.map(s => s.cellLine))].sort();
+
+            tfs.forEach(tf => {
+                const count = allSamples.filter(s => s.tf === tf).length;
+                const opt = document.createElement('option');
+                opt.value = tf;
+                opt.textContent = `${tf} (${count})`;
+                tfFilter.appendChild(opt);
+            });
+
+            cellLines.forEach(cl => {
+                const opt = document.createElement('option');
+                opt.value = cl;
+                opt.textContent = cl;
+                cellLineFilter.appendChild(opt);
+            });
+
+            // Event listeners
+            tfFilter.addEventListener('change', () => { applyFilters(); updateTFChips(); });
+            cellLineFilter.addEventListener('change', applyFilters);
+            document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
+        }
+
+        // Build TF chips
+        function buildTFChips() {
+            const container = document.getElementById('tf-chips');
+            const tfOrder = ['CTCF', 'Rad21', 'KLF4', 'OCT4', 'NANOG'];
+
+            let html = '';
+            tfOrder.forEach(tf => {
+                const count = allSamples.filter(s => s.tf === tf).length;
+                if (count === 0) return;
+                const color = TF_COLORS[tf] || '#999';
+                html += `
+                    <div class="tf-chip" data-tf="${tf}" onclick="toggleTFChip('${tf}')">
+                        <span class="color-dot" style="background: ${color};"></span>
+                        <span>${tf}</span>
+                        <span class="tf-count">(${count})</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function toggleTFChip(tf) {
+            const tfFilter = document.getElementById('tf-filter');
+            tfFilter.value = tfFilter.value === tf ? '' : tf;
+            applyFilters();
+            updateTFChips();
+        }
+
+        function updateTFChips() {
+            const tfFilter = document.getElementById('tf-filter');
+            document.querySelectorAll('.tf-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.tf === tfFilter.value);
+            });
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const tfValue = document.getElementById('tf-filter').value;
+            const cellLineValue = document.getElementById('cellline-filter').value;
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+
+            filteredSamples = allSamples.filter(s => {
+                if (tfValue && s.tf !== tfValue) return false;
+                if (cellLineValue && s.cellLine !== cellLineValue) return false;
+                if (searchValue) {
+                    const searchStr = `${s.tf} ${s.cellLine} ${s.encodeId} ${s.sampleId}`.toLowerCase();
+                    if (!searchStr.includes(searchValue)) return false;
+                }
+                return true;
+            });
+
+            // Sort
+            sortSamples();
+
+            // Update stats
+            document.getElementById('stat-filtered').textContent = filteredSamples.length;
+
+            currentPage = 1;
+            totalPages = Math.ceil(filteredSamples.length / pageSize) || 1;
+            renderTable();
+            updatePagination();
+            updateBulkBar();
+        }
+
+        function clearFilters() {
+            document.getElementById('tf-filter').value = '';
+            document.getElementById('cellline-filter').value = '';
+            document.getElementById('search-input').value = '';
+            updateTFChips();
+            applyFilters();
+        }
+
+        // Sorting
+        function sortBy(field) {
+            if (sortField === field) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortField = field;
+                sortDirection = 'asc';
+            }
+            sortSamples();
+            renderTable();
+        }
+
+        function sortSamples() {
+            filteredSamples.sort((a, b) => {
+                let valA = a[sortField] || '';
+                let valB = b[sortField] || '';
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        // Render table
+        function renderTable() {
+            const tbody = document.getElementById('table-body');
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredSamples.slice(start, end);
+
+            let html = '';
+            pageData.forEach(sample => {
+                const color = TF_COLORS[sample.tf] || '#999';
+                const isSelected = selectedSamples.has(sample.id);
+
+                html += `
+                    <tr>
+                        <td>
+                            <input type="checkbox"
+                                   ${isSelected ? 'checked' : ''}
+                                   onchange="toggleSampleSelection('${sample.id}', this.checked)">
+                        </td>
+                        <td>
+                            <span class="tf-badge" style="background: ${color};">${sample.tf}</span>
+                        </td>
+                        <td>
+                            <span class="cell-line-name">${sample.cellLine}</span>
+                        </td>
+                        <td>
+                            <span class="encode-id">${sample.encodeId}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-download btn-sm" onclick="downloadFile('${sample.downloadUrl}', '${sample.tf}_${sample.sampleId}_loops.bed')">
+                                Download
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html || '<tr><td colspan="5" style="text-align: center; padding: 40px; color: #6c757d;">No matching datasets found</td></tr>';
+        }
+
+        // Pagination
+        function updatePagination() {
+            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages} (${filteredSamples.length} items)`;
+            document.getElementById('btn-first').disabled = currentPage === 1;
+            document.getElementById('btn-prev').disabled = currentPage === 1;
+            document.getElementById('btn-next').disabled = currentPage === totalPages;
+            document.getElementById('btn-last').disabled = currentPage === totalPages;
+        }
+
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            updatePagination();
+        }
+
+        function changePageSize(size) {
+            pageSize = parseInt(size);
+            currentPage = 1;
+            totalPages = Math.ceil(filteredSamples.length / pageSize) || 1;
+            renderTable();
+            updatePagination();
+        }
+
+        // Selection
+        function toggleSampleSelection(id, isChecked) {
+            if (isChecked) {
+                selectedSamples.add(id);
+            } else {
+                selectedSamples.delete(id);
+            }
+            updateBulkBar();
+        }
+
+        function toggleSelectAll(isChecked) {
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredSamples.slice(start, end);
+
+            pageData.forEach(sample => {
+                if (isChecked) {
+                    selectedSamples.add(sample.id);
+                } else {
+                    selectedSamples.delete(sample.id);
+                }
+            });
+
+            renderTable();
+            updateBulkBar();
+        }
+
+        function clearSelection() {
+            selectedSamples.clear();
+            renderTable();
+            updateBulkBar();
+        }
+
+        function updateBulkBar() {
+            const bar = document.getElementById('bulk-bar');
+            const count = document.getElementById('selected-count');
+
+            if (selectedSamples.size > 0) {
+                bar.style.display = 'flex';
+                count.textContent = selectedSamples.size;
+            } else {
+                bar.style.display = 'none';
+            }
+        }
+
+        // Download functions
+        function downloadFile(url, filename) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadSelected() {
+            const selected = Array.from(selectedSamples);
+            selected.forEach((id, index) => {
+                const sample = allSamples.find(s => s.id === id);
+                if (sample) {
+                    setTimeout(() => {
+                        downloadFile(sample.downloadUrl, `${sample.tf}_${sample.sampleId}_loops.bed`);
+                    }, index * 300);
+                }
+            });
+        }
+
+        // Utility
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+    </script>
+</body>
+</html>
