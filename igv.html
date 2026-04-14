@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGV Genome Browser - Chromatin Loops Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/igv@2.15.13/dist/igv.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 3px solid #2c5aa0;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #2c5aa0;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: #2c5aa0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .panel {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c5aa0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-title .count {
+            background: #2c5aa0;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        /* Filter Section */
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            color: #6c757d;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-size: 13px;
+            background: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
+        }
+
+        .filter-group input[type="text"] {
+            width: 200px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3f73;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #2c5aa0;
+            border: 1px solid #2c5aa0;
+        }
+
+        .btn-outline:hover {
+            background: #e7f1ff;
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 11px;
+        }
+
+        /* TF Legend / Quick Filters */
+        .tf-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .tf-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .tf-chip:hover {
+            border-color: #2c5aa0;
+        }
+
+        .tf-chip.active {
+            background: #e7f1ff;
+            border-color: #2c5aa0;
+        }
+
+        .tf-chip .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tf-chip .tf-count {
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        /* Sample Grid */
+        .sample-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .sample-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sample-item:hover {
+            border-color: #2c5aa0;
+            background: #f8f9ff;
+        }
+
+        .sample-item.active {
+            border-color: #2c5aa0;
+            background: #e7f1ff;
+        }
+
+        .sample-item input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .sample-label {
+            font-size: 12px;
+            color: #495057;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sample-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Sample group and expand */
+        .sample-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sample-badge {
+            background: #6c757d;
+            color: white;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            margin-left: 6px;
+        }
+
+        .expand-icon {
+            font-size: 10px;
+            color: #6c757d;
+            margin-left: 4px;
+        }
+
+        .sample-item.partial {
+            border-color: #ffc107;
+            background: #fffbeb;
+        }
+
+        /* ENCODE ID list (expanded) */
+        .encode-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px 10px 10px 30px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            margin-top: -1px;
+        }
+
+        .encode-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .encode-item:hover {
+            border-color: #2c5aa0;
+            background: #f8f9ff;
+        }
+
+        .encode-item.active {
+            border-color: #2c5aa0;
+            background: #e7f1ff;
+        }
+
+        .encode-item input[type="checkbox"] {
+            margin-right: 6px;
+            cursor: pointer;
+        }
+
+        .encode-label {
+            font-family: "Monaco", "Menlo", monospace;
+            color: #495057;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .pagination button {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: #2c5aa0;
+            background: #f8f9ff;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            font-size: 12px;
+            color: #6c757d;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Navigation Section */
+        .nav-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-row input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-family: "Monaco", "Menlo", monospace;
+            font-size: 12px;
+            width: 300px;
+        }
+
+        .nav-row input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .quick-nav {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-left: 10px;
+        }
+
+        .quick-nav button {
+            padding: 4px 10px;
+            font-size: 11px;
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .quick-nav button:hover {
+            background: #dee2e6;
+            border-color: #2c5aa0;
+        }
+
+        /* IGV Container */
+        #igv-container {
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            overflow: hidden;
+            min-height: 400px;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2c5aa0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Selected tracks summary */
+        .selected-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #e7f1ff;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .selected-summary .count {
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+
+        .selected-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .selected-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: white;
+            border: 1px solid #2c5aa0;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .selected-tag .remove {
+            cursor: pointer;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        footer a {
+            color: #2c5aa0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+            }
+
+            .sample-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-row {
+                flex-direction: column;
+            }
+
+            .nav-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-row input {
+                width: 100%;
+            }
+
+            .quick-nav {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div>Loading sample data...</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>IGV Genome Browser - Chromatin Loops</h1>
+            <div class="subtitle">Interactive Visualization of HiChIP-derived Chromatin Interactions</div>
+            <div class="nav-links">
+                <a href="index.html">Data Download</a>
+                <a href="igv.html" class="active">IGV Browser</a>
+                <a href="heatmap.html">Heatmap Browser</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Section 1: Sample Filter -->
+            <div class="panel">
+                <div class="panel-title">
+                    Sample Filter
+                    <span class="count" id="filtered-count">0 samples</span>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Transcription Factor</label>
+                        <select id="tf-filter">
+                            <option value="">All TFs</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Cell Line / Tissue</label>
+                        <select id="cellline-filter">
+                            <option value="">All Cell Lines</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input type="text" id="search-input" placeholder="Search samples...">
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="clearFilters()">Clear Filters</button>
+                </div>
+                <div class="tf-filters" id="tf-chips">
+                    <!-- TF chips will be generated -->
+                </div>
+            </div>
+
+            <!-- Section 2: Sample List with Pagination -->
+            <div class="panel">
+                <div class="panel-title">
+                    Select Samples to Visualize
+                </div>
+
+                <!-- Selected tracks summary -->
+                <div class="selected-summary" id="selected-summary" style="display: none;">
+                    <span>Selected: <span class="count" id="selected-count">0</span></span>
+                    <div class="selected-tags" id="selected-tags"></div>
+                    <button class="btn btn-sm btn-outline" onclick="clearAllSelected()">Clear All</button>
+                </div>
+
+                <div class="sample-grid" id="sample-grid">
+                    <!-- Samples will be generated -->
+                </div>
+
+                <div class="pagination">
+                    <button onclick="goToPage(1)" id="btn-first">First</button>
+                    <button onclick="goToPage(currentPage - 1)" id="btn-prev">Prev</button>
+                    <span class="page-info" id="page-info">Page 1 of 1</span>
+                    <button onclick="goToPage(currentPage + 1)" id="btn-next">Next</button>
+                    <button onclick="goToPage(totalPages)" id="btn-last">Last</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Genomic Navigation -->
+            <div class="panel">
+                <div class="panel-title">Genomic Navigation</div>
+                <div class="nav-row">
+                    <input type="text" id="locus-input" placeholder="Enter gene or region (e.g., MYC, chr8:127,000,000-128,000,000)">
+                    <button class="btn btn-primary" onclick="goToLocus()">Go</button>
+                    <button class="btn btn-secondary" onclick="zoomOut()">Zoom Out</button>
+                    <div class="quick-nav">
+                        <span style="font-size: 11px; color: #6c757d;">Quick:</span>
+                        <button onclick="navigateTo('MYC')">MYC</button>
+                        <button onclick="navigateTo('TP53')">TP53</button>
+                        <button onclick="navigateTo('NANOG')">NANOG</button>
+                        <button onclick="navigateTo('POU5F1')">OCT4</button>
+                        <button onclick="navigateTo('SOX2')">SOX2</button>
+                        <button onclick="navigateTo('GATA1')">GATA1</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: IGV Browser -->
+            <div id="igv-container"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <strong>Transcription Factor Chromatin Loop Database</strong> |
+            Visualized with <a href="https://github.com/igvteam/igv.js" target="_blank">IGV.js</a> |
+            Data from ENCODE Project
+        </p>
+    </footer>
+
+    <script>
+        // Global state
+        let igvBrowser = null;
+        let loopData = {};
+        let allSamples = [];           // All individual samples
+        let groupedSamples = [];       // Grouped by TF + CellLine
+        let filteredGroups = [];       // Filtered groups for display
+        let loadedTracks = new Map();
+        let selectedSamples = new Set();  // Individual sample IDs
+        let expandedGroup = null;      // Currently expanded group
+
+        // Pagination
+        const ITEMS_PER_PAGE = 24;
+        let currentPage = 1;
+        let totalPages = 1;
+
+        // TF colors
+        const TF_COLORS = {
+            'CTCF': 'rgba(0, 0, 255, 0.6)',
+            'Rad21': 'rgba(0, 128, 0, 0.6)',
+            'KLF4': 'rgba(255, 0, 0, 0.6)',
+            'OCT4': 'rgba(255, 165, 0, 0.6)',
+            'NANOG': 'rgba(128, 0, 128, 0.6)'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await loadDataIndex();
+                buildFilters();
+                buildTFChips();
+                applyFilters();
+                await initIGV();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Initialization failed:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="loading-content">
+                        <div style="color: #dc3545;">Error: ${error.message}</div>
+                        <div style="margin-top: 10px; font-size: 12px;">Please check console for details</div>
+                    </div>
+                `;
+            }
+        });
+
+        // Load data index
+        async function loadDataIndex() {
+            const ossUrl = 'https://tf-loops.oss-cn-hangzhou.aliyuncs.com/oss_upload_folder/loops/file_index.json';
+            const localUrl = 'file_index.json';
+
+            let indexData = null;
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const response = await fetch(ossUrl, { cache: 'no-store', signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (response.ok) indexData = await response.json();
+            } catch (e) {
+                console.warn('OSS load failed:', e.message);
+            }
+
+            if (!indexData) {
+                try {
+                    const response = await fetch(localUrl);
+                    if (response.ok) indexData = await response.json();
+                } catch (e) {
+                    console.warn('Local load failed:', e.message);
+                }
+            }
+
+            if (!indexData) throw new Error('Failed to load file_index.json');
+
+            loopData = indexData.data;
+
+            // Flatten to array and group by TF + CellLine
+            allSamples = [];
+            const groupMap = new Map();
+
+            Object.keys(loopData).forEach(tf => {
+                Object.keys(loopData[tf]).forEach(sampleId => {
+                    const cellLine = sampleId.replace(/_ENCFF[A-Z0-9]+$/, '');
+                    const encodeId = sampleId.match(/ENCFF[A-Z0-9]+$/)?.[0] || sampleId;
+
+                    const sample = {
+                        id: `${tf}_${sampleId}`,
+                        tf: tf,
+                        sampleId: sampleId,
+                        cellLine: cellLine,
+                        encodeId: encodeId,
+                        data: loopData[tf][sampleId]
+                    };
+                    allSamples.push(sample);
+
+                    // Group by TF + CellLine
+                    const groupKey = `${tf}_${cellLine}`;
+                    if (!groupMap.has(groupKey)) {
+                        groupMap.set(groupKey, {
+                            key: groupKey,
+                            tf: tf,
+                            cellLine: cellLine,
+                            samples: []
+                        });
+                    }
+                    groupMap.get(groupKey).samples.push(sample);
+                });
+            });
+
+            groupedSamples = Array.from(groupMap.values());
+            console.log(`Loaded ${allSamples.length} samples in ${groupedSamples.length} groups`);
+        }
+
+        // Build filter dropdowns
+        function buildFilters() {
+            const tfFilter = document.getElementById('tf-filter');
+            const cellLineFilter = document.getElementById('cellline-filter');
+
+            // Get unique TFs and cell lines
+            const tfs = [...new Set(allSamples.map(s => s.tf))].sort();
+            const cellLines = [...new Set(allSamples.map(s => s.cellLine))].sort();
+
+            tfs.forEach(tf => {
+                const count = allSamples.filter(s => s.tf === tf).length;
+                const opt = document.createElement('option');
+                opt.value = tf;
+                opt.textContent = `${tf} (${count})`;
+                tfFilter.appendChild(opt);
+            });
+
+            cellLines.forEach(cl => {
+                const opt = document.createElement('option');
+                opt.value = cl;
+                opt.textContent = cl;
+                cellLineFilter.appendChild(opt);
+            });
+
+            // Event listeners
+            tfFilter.addEventListener('change', () => { applyFilters(); updateTFChips(); });
+            cellLineFilter.addEventListener('change', applyFilters);
+            document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
+        }
+
+        // Build TF chips
+        function buildTFChips() {
+            const container = document.getElementById('tf-chips');
+            const tfOrder = ['CTCF', 'Rad21', 'KLF4', 'OCT4', 'NANOG'];
+
+            let html = '';
+            tfOrder.forEach(tf => {
+                if (!loopData[tf]) return;
+                const count = Object.keys(loopData[tf]).length;
+                const color = TF_COLORS[tf] || '#999';
+                html += `
+                    <div class="tf-chip" data-tf="${tf}" onclick="toggleTFChip('${tf}')">
+                        <span class="color-dot" style="background: ${color};"></span>
+                        <span>${tf}</span>
+                        <span class="tf-count">(${count})</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function toggleTFChip(tf) {
+            const tfFilter = document.getElementById('tf-filter');
+            if (tfFilter.value === tf) {
+                tfFilter.value = '';
+            } else {
+                tfFilter.value = tf;
+            }
+            applyFilters();
+            updateTFChips();
+        }
+
+        function updateTFChips() {
+            const tfFilter = document.getElementById('tf-filter');
+            document.querySelectorAll('.tf-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.tf === tfFilter.value);
+            });
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const tfValue = document.getElementById('tf-filter').value;
+            const cellLineValue = document.getElementById('cellline-filter').value;
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+
+            filteredGroups = groupedSamples.filter(g => {
+                if (tfValue && g.tf !== tfValue) return false;
+                if (cellLineValue && g.cellLine !== cellLineValue) return false;
+                if (searchValue) {
+                    const searchStr = `${g.tf} ${g.cellLine}`.toLowerCase();
+                    if (!searchStr.includes(searchValue)) return false;
+                }
+                return true;
+            });
+
+            // Count total samples in filtered groups
+            const totalSamples = filteredGroups.reduce((sum, g) => sum + g.samples.length, 0);
+            document.getElementById('filtered-count').textContent = `${filteredGroups.length} groups (${totalSamples} samples)`;
+
+            currentPage = 1;
+            totalPages = Math.ceil(filteredGroups.length / ITEMS_PER_PAGE) || 1;
+            expandedGroup = null;
+            renderSampleGrid();
+            updatePagination();
+        }
+
+        function clearFilters() {
+            document.getElementById('tf-filter').value = '';
+            document.getElementById('cellline-filter').value = '';
+            document.getElementById('search-input').value = '';
+            updateTFChips();
+            applyFilters();
+        }
+
+        // Render sample grid with grouped samples
+        function renderSampleGrid() {
+            const container = document.getElementById('sample-grid');
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageGroups = filteredGroups.slice(start, end);
+
+            let html = '';
+            pageGroups.forEach(group => {
+                const color = TF_COLORS[group.tf] || '#999';
+                const hasMultiple = group.samples.length > 1;
+                const isExpanded = expandedGroup === group.key;
+
+                // Count selected samples in this group
+                const selectedInGroup = group.samples.filter(s => selectedSamples.has(s.id)).length;
+                const allSelected = selectedInGroup === group.samples.length;
+                const someSelected = selectedInGroup > 0 && !allSelected;
+
+                html += `
+                    <div class="sample-group ${isExpanded ? 'expanded' : ''}" id="group-${group.key}">
+                        <div class="sample-item ${allSelected ? 'active' : ''} ${someSelected ? 'partial' : ''}"
+                             onclick="toggleGroup('${group.key}')">
+                            <input type="checkbox"
+                                   ${allSelected ? 'checked' : ''}
+                                   ${someSelected ? 'indeterminate' : ''}
+                                   onclick="event.stopPropagation(); selectAllInGroup('${group.key}', this.checked)">
+                            <span class="sample-label" title="${group.tf} - ${group.cellLine}">
+                                ${group.tf} - ${group.cellLine}
+                            </span>
+                            ${hasMultiple ? `<span class="sample-badge">${group.samples.length}</span>` : ''}
+                            <span class="sample-color" style="background: ${color};"></span>
+                            ${hasMultiple ? `<span class="expand-icon">${isExpanded ? '▼' : '▶'}</span>` : ''}
+                        </div>
+                        ${isExpanded ? renderEncodeList(group) : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // Set indeterminate state for partial selections
+            pageGroups.forEach(group => {
+                const selectedInGroup = group.samples.filter(s => selectedSamples.has(s.id)).length;
+                if (selectedInGroup > 0 && selectedInGroup < group.samples.length) {
+                    const checkbox = document.querySelector(`#group-${group.key} > .sample-item > input`);
+                    if (checkbox) checkbox.indeterminate = true;
+                }
+            });
+        }
+
+        // Render ENCODE ID list for expanded group
+        function renderEncodeList(group) {
+            let html = '<div class="encode-list">';
+            group.samples.forEach(sample => {
+                const isSelected = selectedSamples.has(sample.id);
+                html += `
+                    <label class="encode-item ${isSelected ? 'active' : ''}"
+                           onclick="event.stopPropagation()">
+                        <input type="checkbox"
+                               ${isSelected ? 'checked' : ''}
+                               onchange="toggleSample('${sample.id}', this.checked)">
+                        <span class="encode-label">${sample.encodeId}</span>
+                    </label>
+                `;
+            });
+            html += '</div>';
+            return html;
+        }
+
+        // Toggle group expansion
+        function toggleGroup(groupKey) {
+            const group = groupedSamples.find(g => g.key === groupKey);
+            if (!group || group.samples.length === 1) {
+                // Single sample - just select/deselect it
+                const sample = group.samples[0];
+                const isSelected = selectedSamples.has(sample.id);
+                toggleSample(sample.id, !isSelected);
+                return;
+            }
+
+            // Multiple samples - toggle expansion
+            expandedGroup = expandedGroup === groupKey ? null : groupKey;
+            renderSampleGrid();
+        }
+
+        // Select all samples in a group
+        function selectAllInGroup(groupKey, isChecked) {
+            const group = groupedSamples.find(g => g.key === groupKey);
+            if (!group) return;
+
+            group.samples.forEach(sample => {
+                if (isChecked) {
+                    if (!selectedSamples.has(sample.id)) {
+                        selectedSamples.add(sample.id);
+                        loadTrack(sample);
+                    }
+                } else {
+                    if (selectedSamples.has(sample.id)) {
+                        selectedSamples.delete(sample.id);
+                        removeTrack(sample.id);
+                    }
+                }
+            });
+
+            renderSampleGrid();
+            updateSelectedSummary();
+        }
+
+        // Pagination
+        function updatePagination() {
+            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('btn-first').disabled = currentPage === 1;
+            document.getElementById('btn-prev').disabled = currentPage === 1;
+            document.getElementById('btn-next').disabled = currentPage === totalPages;
+            document.getElementById('btn-last').disabled = currentPage === totalPages;
+        }
+
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            expandedGroup = null;
+            renderSampleGrid();
+            updatePagination();
+        }
+
+        // Sample selection
+        function toggleSample(sampleId, isChecked) {
+            const sample = allSamples.find(s => s.id === sampleId);
+            if (!sample) return;
+
+            if (isChecked) {
+                selectedSamples.add(sampleId);
+                loadTrack(sample);
+            } else {
+                selectedSamples.delete(sampleId);
+                removeTrack(sampleId);
+            }
+
+            renderSampleGrid();
+            updateSelectedSummary();
+        }
+
+        function updateSelectedSummary() {
+            const summary = document.getElementById('selected-summary');
+            const countEl = document.getElementById('selected-count');
+            const tagsEl = document.getElementById('selected-tags');
+
+            if (selectedSamples.size === 0) {
+                summary.style.display = 'none';
+                return;
+            }
+
+            summary.style.display = 'flex';
+            countEl.textContent = selectedSamples.size;
+
+            let html = '';
+            selectedSamples.forEach(id => {
+                const sample = allSamples.find(s => s.id === id);
+                if (sample) {
+                    html += `
+                        <span class="selected-tag">
+                            ${sample.tf}-${sample.cellLine}-${sample.encodeId}
+                            <span class="remove" onclick="toggleSample('${id}', false)">×</span>
+                        </span>
+                    `;
+                }
+            });
+            tagsEl.innerHTML = html;
+        }
+
+        function clearAllSelected() {
+            selectedSamples.forEach(id => {
+                removeTrack(id);
+            });
+            selectedSamples.clear();
+            renderSampleGrid();
+            updateSelectedSummary();
+        }
+
+        // IGV Functions
+        async function initIGV() {
+            const igvDiv = document.getElementById('igv-container');
+
+            const options = {
+                reference: {
+                    id: 'hg38',
+                    name: 'Human (GRCh38/hg38)',
+                    chromSizesURL: 'https://tf-loops.oss-cn-hangzhou.aliyuncs.com/oss_upload_folder/genome/hg38/hg38.chrom.sizes',
+                    cytobandURL: 'https://tf-loops.oss-cn-hangzhou.aliyuncs.com/oss_upload_folder/genome/hg38/cytoBand.txt.gz'
+                },
+                locus: 'chr8:127,700,000-128,100,000',
+                showSequence: false,
+                tracks: [
+                    {
+                        name: 'RefSeq Genes',
+                        format: 'refgene',
+                        url: 'https://tf-loops.oss-cn-hangzhou.aliyuncs.com/oss_upload_folder/genome/hg38/ncbiRefSeq.txt.gz',
+                        indexed: false,
+                        order: 0,
+                        displayMode: 'EXPANDED',
+                        height: 150
+                    }
+                ]
+            };
+
+            igvBrowser = await igv.createBrowser(igvDiv, options);
+
+            // Load default samples
+            const defaults = ['CTCF_GM12878_ENCFF803OXW', 'Rad21_GM12878_ENCFF407HJR'];
+            for (const id of defaults) {
+                const sample = allSamples.find(s => s.id === id);
+                if (sample) {
+                    selectedSamples.add(id);
+                    await loadTrack(sample);
+                }
+            }
+            renderSampleGrid();
+            updateSelectedSummary();
+        }
+
+        async function loadTrack(sample) {
+            if (!igvBrowser || loadedTracks.has(sample.id)) return;
+
+            const color = TF_COLORS[sample.tf] || 'rgba(100, 100, 100, 0.6)';
+
+            try {
+                const track = await igvBrowser.loadTrack({
+                    id: sample.id,
+                    name: `${sample.tf} - ${sample.cellLine} (${sample.encodeId})`,
+                    type: 'interaction',
+                    format: 'bedpe',
+                    url: sample.data.download_url,
+                    color: color,
+                    alpha: 0.5,
+                    height: 150,
+                    displayMode: 'ARC',
+                    showBlocks: false
+                });
+                loadedTracks.set(sample.id, track);
+            } catch (error) {
+                console.error(`Failed to load track ${sample.id}:`, error);
+                selectedSamples.delete(sample.id);
+                renderSampleGrid();
+                updateSelectedSummary();
+            }
+        }
+
+        function removeTrack(sampleId) {
+            if (!igvBrowser) return;
+
+            const track = loadedTracks.get(sampleId);
+            if (track) {
+                igvBrowser.removeTrack(track);
+                loadedTracks.delete(sampleId);
+            }
+        }
+
+        function goToLocus() {
+            const input = document.getElementById('locus-input').value.trim();
+            if (input && igvBrowser) {
+                igvBrowser.search(input);
+            }
+        }
+
+        function navigateTo(locus) {
+            document.getElementById('locus-input').value = locus;
+            if (igvBrowser) {
+                igvBrowser.search(locus);
+            }
+        }
+
+        function zoomOut() {
+            if (igvBrowser) {
+                igvBrowser.zoomOut();
+            }
+        }
+
+        // Utility
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.id === 'locus-input') {
+                goToLocus();
+            }
+        });
+    </script>
+</body>
+</html>

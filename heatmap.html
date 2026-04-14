@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiChIP Heatmap Browser - TF Chromatin Loops</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 3px solid #2c5aa0;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #2c5aa0;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: #2c5aa0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid #2c5aa0;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .info-panel {
+            background: #e7f3ff;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2c5aa0;
+        }
+
+        .info-panel strong {
+            color: #2c5aa0;
+        }
+
+        .controls {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #495057;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-size: 13px;
+            color: #495057;
+            background: white;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
+        }
+
+        .control-group select:disabled,
+        .control-group input:disabled {
+            background: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3f73;
+        }
+
+        .btn-primary:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #1e7e34;
+        }
+
+        .btn-secondary:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+        }
+
+        .chromosomes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 5px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .chr-btn {
+            padding: 6px 8px;
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 11px;
+            transition: all 0.2s ease;
+        }
+
+        .chr-btn:hover {
+            background: #dee2e6;
+            border-color: #2c5aa0;
+        }
+
+        .chr-btn.selected {
+            background: #2c5aa0;
+            color: white;
+            border-color: #2c5aa0;
+        }
+
+        .heatmap-container {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed #dee2e6;
+            border-radius: 6px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+        }
+
+        .heatmap-container img {
+            max-width: 100%;
+            max-height: 600px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .heatmap-info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.8;
+        }
+
+        .heatmap-info strong {
+            color: #495057;
+        }
+
+        .loading {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .error-message {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #dc3545;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HiChIP Heatmap Browser</h1>
+            <div class="subtitle">Interactive Contact Matrix Visualization for ChIP-seq Experiments</div>
+            <div class="nav-links">
+                <a href="index.html">Data Download</a>
+                <a href="igv.html">IGV Browser</a>
+                <a href="heatmap.html" class="active">Heatmap Browser</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="info-panel">
+                <strong>Instructions:</strong> Select a transcription factor (TF), ENCODE ID, and chromosome, then enter a genomic position to view the corresponding heatmap. Each PNG file covers a 2MB window (2,097,152bp) with 2MB intervals between files.
+            </div>
+
+            <div class="controls">
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label class="control-label">Transcription Factor</label>
+                        <select id="tfSelect">
+                            <option value="">Select TF...</option>
+                            <option value="KLF4">KLF4</option>
+                            <option value="NANOG">NANOG</option>
+                            <option value="OCT4">OCT4</option>
+                            <option value="Rad21">Rad21</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">ENCODE ID</label>
+                        <select id="encodeSelect" disabled>
+                            <option value="">Select TF first...</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Chromosome</label>
+                        <select id="chrSelect" disabled>
+                            <option value="">Select ENCODE first...</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Genomic Position (bp)</label>
+                        <input type="number" id="positionInput" placeholder="e.g., 127000000" disabled>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="searchBtn" disabled>View Heatmap</button>
+                    <button class="btn btn-secondary" id="downloadBtn" disabled>Download PNG</button>
+                </div>
+
+                <div class="chromosomes" id="chromosomes" style="display: none;">
+                    <div class="chr-btn" data-chr="chr1">chr1</div>
+                    <div class="chr-btn" data-chr="chr2">chr2</div>
+                    <div class="chr-btn" data-chr="chr3">chr3</div>
+                    <div class="chr-btn" data-chr="chr4">chr4</div>
+                    <div class="chr-btn" data-chr="chr5">chr5</div>
+                    <div class="chr-btn" data-chr="chr6">chr6</div>
+                    <div class="chr-btn" data-chr="chr7">chr7</div>
+                    <div class="chr-btn" data-chr="chr8">chr8</div>
+                    <div class="chr-btn" data-chr="chr9">chr9</div>
+                    <div class="chr-btn" data-chr="chr10">chr10</div>
+                    <div class="chr-btn" data-chr="chr11">chr11</div>
+                    <div class="chr-btn" data-chr="chr12">chr12</div>
+                    <div class="chr-btn" data-chr="chr13">chr13</div>
+                    <div class="chr-btn" data-chr="chr14">chr14</div>
+                    <div class="chr-btn" data-chr="chr15">chr15</div>
+                    <div class="chr-btn" data-chr="chr16">chr16</div>
+                    <div class="chr-btn" data-chr="chr17">chr17</div>
+                    <div class="chr-btn" data-chr="chr18">chr18</div>
+                    <div class="chr-btn" data-chr="chr19">chr19</div>
+                    <div class="chr-btn" data-chr="chr20">chr20</div>
+                    <div class="chr-btn" data-chr="chr21">chr21</div>
+                    <div class="chr-btn" data-chr="chr22">chr22</div>
+                </div>
+            </div>
+
+            <div class="heatmap-container" id="heatmapContainer">
+                <div class="loading">Please select parameters to display heatmap</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <strong>Transcription Factor Chromatin Loop Database</strong> |
+            HiChIP Contact Matrix Visualization |
+            Data from ENCODE Project
+        </p>
+    </footer>
+
+    <script>
+        // TF to ENCODE ID mapping
+        const tfEncodeMap = {
+            'KLF4': ['ENCFF761ZKW'],
+            'NANOG': ['ENCFF153EHS', 'ENCFF926YZX'],
+            'OCT4': ['ENCFF003PEE', 'ENCFF259JPA', 'ENCFF906LPL'],
+            'Rad21': ['ENCFF056GWP', 'ENCFF081AYT', 'ENCFF234BCG', 'ENCFF377CPT', 'ENCFF407HJR', 'ENCFF422JJM', 'ENCFF619WCL', 'ENCFF666JJM', 'ENCFF704FRG', 'ENCFF778YHU', 'ENCFF822QJA', 'ENCFF837RSL', 'ENCFF851ZRH']
+        };
+
+        const chromosomes = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
+                           'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr20',
+                           'chr21', 'chr22'];
+
+        // DOM elements
+        const tfSelect = document.getElementById('tfSelect');
+        const encodeSelect = document.getElementById('encodeSelect');
+        const chrSelect = document.getElementById('chrSelect');
+        const positionInput = document.getElementById('positionInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const heatmapContainer = document.getElementById('heatmapContainer');
+        const chromosomesDiv = document.getElementById('chromosomes');
+
+        // State variable to track current blob URL for memory management
+        let currentObjectUrl = null;
+
+        // TF selection handler
+        tfSelect.addEventListener('change', function() {
+            const selectedTF = this.value;
+
+            // Reset and clear downstream selects
+            encodeSelect.innerHTML = '<option value="">Select ENCODE ID...</option>';
+            encodeSelect.disabled = !selectedTF;
+            chrSelect.innerHTML = '<option value="">Select chromosome...</option>';
+            chrSelect.disabled = true;
+            positionInput.value = '';
+            positionInput.disabled = true;
+            searchBtn.disabled = true;
+            downloadBtn.disabled = true;
+            chromosomesDiv.style.display = 'none';
+
+            // Clear chromosome selection
+            document.querySelectorAll('.chr-btn').forEach(btn => btn.classList.remove('selected'));
+
+            if (selectedTF && tfEncodeMap[selectedTF]) {
+                tfEncodeMap[selectedTF].forEach(encode => {
+                    const option = document.createElement('option');
+                    option.value = encode;
+                    option.textContent = encode;
+                    encodeSelect.appendChild(option);
+                });
+                encodeSelect.disabled = false;
+            }
+        });
+
+        // ENCODE selection handler
+        encodeSelect.addEventListener('change', function() {
+            const selectedEncode = this.value;
+
+            // Reset downstream
+            chrSelect.innerHTML = '<option value="">Select chromosome...</option>';
+            chrSelect.disabled = !selectedEncode;
+            positionInput.value = '';
+            positionInput.disabled = true;
+            searchBtn.disabled = true;
+            downloadBtn.disabled = true;
+
+            // Clear chromosome selection
+            document.querySelectorAll('.chr-btn').forEach(btn => btn.classList.remove('selected'));
+
+            if (selectedEncode) {
+                chromosomes.forEach(chr => {
+                    const option = document.createElement('option');
+                    option.value = chr;
+                    option.textContent = chr;
+                    chrSelect.appendChild(option);
+                });
+                chrSelect.disabled = false;
+                chromosomesDiv.style.display = 'grid';
+            } else {
+                chromosomesDiv.style.display = 'none';
+            }
+        });
+
+        // Chromosome selection handler
+        chrSelect.addEventListener('change', function() {
+            const selectedChr = this.value;
+            positionInput.disabled = !selectedChr;
+            searchBtn.disabled = !selectedChr;
+            downloadBtn.disabled = !selectedChr;
+
+            document.querySelectorAll('.chr-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            if (selectedChr) {
+                const chrBtn = document.querySelector(`[data-chr="${selectedChr}"]`);
+                if (chrBtn) {
+                    chrBtn.classList.add('selected');
+                }
+            }
+        });
+
+        // Chromosome button click handler
+        document.querySelectorAll('.chr-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const chr = this.dataset.chr;
+                chrSelect.value = chr;
+                chrSelect.dispatchEvent(new Event('change'));
+            });
+        });
+
+        // Calculate nearest PNG file (pure function)
+        function calculateNearestPNG(position, chr) {
+            const INTERVAL = 2097152; // 2MB interval
+            const posNum = parseInt(position, 10);
+
+            if (isNaN(posNum) || posNum < 0) {
+                throw new Error("Invalid position");
+            }
+
+            const fileStart = Math.floor(posNum / INTERVAL) * INTERVAL;
+            const windowCenter = fileStart + (INTERVAL / 2);
+
+            return {
+                startPosition: fileStart,
+                endPosition: fileStart + INTERVAL,
+                filename: `${chr}_${fileStart}.png`,
+                distanceFromInput: Math.abs(posNum - windowCenter),
+                windowCenter: windowCenter
+            };
+        }
+
+        // Set loading state
+        function setLoading(isLoading) {
+            searchBtn.disabled = isLoading;
+            downloadBtn.disabled = isLoading;
+            searchBtn.textContent = isLoading ? 'Loading...' : 'View Heatmap';
+        }
+
+        // Display heatmap
+        async function displayHeatmap() {
+            const tf = tfSelect.value;
+            const encode = encodeSelect.value;
+            const chr = chrSelect.value;
+            const position = positionInput.value;
+
+            if (!tf || !encode || !chr || !position) {
+                showError('Please configure all parameters (TF, ENCODE ID, chromosome, and genomic position).');
+                return;
+            }
+
+            const posNum = parseInt(position, 10);
+            if (isNaN(posNum) || posNum < 0) {
+                showError('Genomic position must be a positive integer.');
+                return;
+            }
+
+            try {
+                setLoading(true);
+
+                const pngInfo = calculateNearestPNG(posNum, chr);
+                const imagePath = `https://tf-heatmap-browser.oss-cn-hangzhou.aliyuncs.com/data/${tf}/${encode}/${chr}/${pngInfo.filename}`;
+
+                heatmapContainer.innerHTML = `
+                    <div class="loading">Loading heatmap data...</div>
+                    <div class="heatmap-info">
+                        <strong>Genomic Window:</strong> ${pngInfo.startPosition.toLocaleString()} - ${pngInfo.endPosition.toLocaleString()} bp
+                    </div>
+                `;
+
+                const response = await fetch(imagePath, { method: 'GET', mode: 'cors' });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`Heatmap not available for this region (${pngInfo.filename})`);
+                    }
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const blob = await response.blob();
+
+                // Memory management: release old blob URL
+                if (currentObjectUrl) {
+                    URL.revokeObjectURL(currentObjectUrl);
+                }
+
+                currentObjectUrl = URL.createObjectURL(blob);
+
+                heatmapContainer.innerHTML = `
+                    <img src="${currentObjectUrl}" alt="${tf} Heatmap">
+                    <div class="heatmap-info">
+                        <strong>Transcription Factor:</strong> ${tf} |
+                        <strong>ENCODE:</strong> ${encode} |
+                        <strong>Chromosome:</strong> ${chr}<br>
+                        <strong>Genomic Window:</strong> ${pngInfo.startPosition.toLocaleString()} - ${pngInfo.endPosition.toLocaleString()} bp<br>
+                        <strong>Query Position:</strong> ${posNum.toLocaleString()} bp |
+                        <strong>Offset from Center:</strong> ${pngInfo.distanceFromInput.toLocaleString()} bp
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Heatmap load error:', error);
+                showError(`Unable to load heatmap: ${error.message}`);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            heatmapContainer.innerHTML = `<div class="error-message"><strong>Error:</strong> ${message}</div>`;
+        }
+
+        // Download image
+        async function downloadImage() {
+            const tf = tfSelect.value;
+            const encode = encodeSelect.value;
+            const chr = chrSelect.value;
+            const position = positionInput.value;
+
+            if (!tf || !encode || !chr || !position) {
+                showError('Please configure all parameters first.');
+                return;
+            }
+
+            const posNum = parseInt(position, 10);
+            if (isNaN(posNum) || posNum < 0) {
+                showError('Invalid position.');
+                return;
+            }
+
+            try {
+                setLoading(true);
+
+                const pngInfo = calculateNearestPNG(posNum, chr);
+                const imagePath = `https://tf-heatmap-browser.oss-cn-hangzhou.aliyuncs.com/data/${tf}/${encode}/${chr}/${pngInfo.filename}`;
+
+                const response = await fetch(imagePath, { method: 'GET', mode: 'cors' });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${tf}_${encode}_${pngInfo.filename}`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+            } catch (error) {
+                showError(`Unable to download: ${error.message}`);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Event listeners
+        searchBtn.addEventListener('click', displayHeatmap);
+        downloadBtn.addEventListener('click', downloadImage);
+        positionInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') displayHeatmap();
+        });
+    </script>
+</body>
+</html>
