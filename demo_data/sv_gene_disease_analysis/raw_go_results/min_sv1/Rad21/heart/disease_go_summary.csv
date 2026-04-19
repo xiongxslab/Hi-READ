@@ -1,0 +1,62 @@
+group_label,sv_count,top_pairs,top_genes,bg_genes,go_background_mode,go_universe_gene_count,go_bp_terms,go_mf_terms,go_cc_terms,go_total
+aneurysm osteoarthritis syndrome,6,7,7,12894,default_universe,,0,0,0,0
+aortic aneurysm,11,15,13,12894,default_universe,,0,0,0,0
+aortic aneurysm and dissection,69,54,36,12894,default_universe,,0,0,0,0
+aortic aneurysm syndrome,21,18,9,12894,default_universe,,0,0,0,0
+aortic disease,9,7,7,12894,default_universe,,0,0,0,0
+aortic dissection,7,10,8,12894,default_universe,,0,0,0,0
+aortic regurgitation,2,0,0,12894,default_universe,,0,0,0,0
+aortic stenosis,3,0,0,12894,default_universe,,0,0,0,0
+aortic valve disease,8,11,11,12894,default_universe,,0,0,0,0
+arrhythmogenic cardiomyopathy,5,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular cardiomyopathy,1,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular dysplasia,40,17,13,12894,default_universe,,0,0,0,0
+arterial dissection,4,1,1,12894,default_universe,,0,0,0,0
+atrial fibrillation,23,7,3,12894,default_universe,,0,0,0,0
+atrial myxoma,2,1,1,12894,default_universe,,0,0,0,0
+atrial septal defect,4,3,3,12894,default_universe,,0,0,0,0
+atrioventricular block,1,0,0,12894,default_universe,,0,0,0,0
+atrioventricular septal defect,3,2,1,12894,default_universe,,0,0,0,0
+brugada syndrome,11,4,1,12894,default_universe,,0,0,0,0
+cardiac and endocrine syndrome,11,22,14,12894,default_universe,,0,0,0,0
+cardiac arrest,5,9,5,12894,default_universe,,0,0,0,0
+cardiac arrhythmia,67,103,38,12894,default_universe,,0,0,1,1
+cardiac channelopathy,5,3,1,12894,default_universe,,0,0,0,0
+cardiac conduction disease,3,0,0,12894,default_universe,,0,0,0,0
+cardiac conduction disorder,15,6,2,12894,default_universe,,0,0,0,0
+cardiac hypertrophy,1,5,5,12894,default_universe,,0,0,0,0
+cardiac rhabdomyoma,1,28,28,12894,default_universe,,2,2,0,4
+cardiofaciocutaneous syndrome,2,0,0,12894,default_universe,,0,0,0,0
+cardiomyopathy,81,194,89,12894,default_universe,,0,0,0,0
+cardiovascular disease,5,8,8,12894,default_universe,,0,0,0,0
+cardiovascular malformation,3,1,1,12894,default_universe,,0,0,0,0
+catecholaminergic polymorphic ventricular tachycardia,15,12,10,12894,default_universe,,0,0,0,0
+cerebellar ataxia with cardiac conduction defects,1,1,1,12894,default_universe,,0,0,0,0
+cervical artery dissection,1,0,0,12894,default_universe,,0,0,0,0
+congenital heart defect,4,6,6,12894,default_universe,,0,0,0,0
+congenital heart defects,2,10,10,12894,default_universe,,0,0,0,0
+congenital heart disease,10,18,18,12894,default_universe,,0,0,0,0
+congenital heart malformation,1,0,0,12894,default_universe,,0,0,0,0
+congestive heart failure,1,1,1,12894,default_universe,,0,0,0,0
+dilated cardiomyopathy,77,269,71,12894,default_universe,,0,0,0,0
+dilated cardiomyopathy and hypergonadotropic hypogonadism,1,2,2,12894,default_universe,,0,0,0,0
+heart block,10,7,3,12894,default_universe,,0,0,0,0
+heart hand syndrome,11,22,14,12894,default_universe,,0,0,0,0
+hypertension,3,49,37,12894,default_universe,,0,0,0,0
+hypertrophic cardiomyopathy,64,177,73,12894,default_universe,,0,0,0,0
+left ventricular noncompaction,18,30,8,12894,default_universe,,0,0,0,0
+long qt syndrome,33,86,16,12894,default_universe,,0,0,0,0
+mitochondrial hypertrophic cardiomyopathy,2,0,0,12894,default_universe,,0,0,0,0
+myocarditis,3,9,9,12894,default_universe,,0,0,0,0
+pulmonary arterial hypertension,25,122,75,12894,default_universe,,6,3,2,11
+pulmonary hypertension,37,176,83,12894,default_universe,,6,1,2,9
+pulmonary valve stenosis,3,2,1,12894,default_universe,,0,0,0,0
+restrictive cardiomyopathy,3,3,2,12894,default_universe,,0,0,0,0
+short qt syndrome,22,17,15,12894,default_universe,,0,0,0,0
+sudden cardiac arrest,2,0,0,12894,default_universe,,0,0,0,0
+sudden cardiac death,4,0,0,12894,default_universe,,0,0,0,0
+thoracic aortic aneurysm,30,20,10,12894,default_universe,,0,0,0,0
+valvular heart disease,6,13,13,12894,default_universe,,0,0,0,0
+ventricular arrhythmia,4,3,2,12894,default_universe,,0,0,0,0
+ventricular fibrillation,10,6,1,12894,default_universe,,0,0,0,0
+ventricular septal defect,4,33,33,12894,default_universe,,6,0,0,6

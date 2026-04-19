@@ -1,0 +1,46 @@
+name: hiread
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - r-base=4.3
+  - r-data.table
+  - r-dplyr
+  - r-ggplot2
+  - r-patchwork
+  - r-readxl
+  - r-stringr
+  - r-tidyr
+  - bioconductor-annotationdbi
+  - bioconductor-bsgenome.hsapiens.ucsc.hg38
+  - bioconductor-clusterprofiler
+  - bioconductor-genomicscores
+  - bioconductor-org.hs.eg.db
+  - bioconductor-phastcons100way.ucsc.hg38
+  - pip:
+      - biopython==1.85
+      - cooler==0.10.3
+      - denoising-diffusion-pytorch==2.1.1
+      - einops==0.8.1
+      - hicreppy==0.1.0
+      - lightning==2.5.1
+      - matplotlib==3.9.4
+      - numpy==2.0.2
+      - pandas==2.2.3
+      - pybigwig==0.3.18
+      - pyyaml==6.0.2
+      - pyranges==0.1.4
+      - pytorch-msssim==1.0.0
+      - scikit-image==0.24.0
+      - scikit-learn==1.6.1
+      - scipy==1.13.1
+      - seaborn==0.13.2
+      - timm==1.0.15
+      - torch==2.7.0
+      - torchmetrics==1.7.1
+      - torchvision==0.22.0
+      - tqdm==4.67.1
+      - umap-learn==0.5.7

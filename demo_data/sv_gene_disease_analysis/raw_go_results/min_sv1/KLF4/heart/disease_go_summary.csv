@@ -1,0 +1,62 @@
+group_label,sv_count,top_pairs,top_genes,bg_genes,go_background_mode,go_universe_gene_count,go_bp_terms,go_mf_terms,go_cc_terms,go_total
+aneurysm osteoarthritis syndrome,6,7,7,12894,default_universe,,0,0,0,0
+aortic aneurysm,11,10,9,12894,default_universe,,0,0,0,0
+aortic aneurysm and dissection,69,50,40,12894,default_universe,,2,3,1,6
+aortic aneurysm syndrome,21,15,9,12894,default_universe,,0,0,0,0
+aortic disease,9,9,9,12894,default_universe,,0,0,0,0
+aortic dissection,7,8,7,12894,default_universe,,0,0,0,0
+aortic regurgitation,2,0,0,12894,default_universe,,0,0,0,0
+aortic stenosis,3,0,0,12894,default_universe,,0,0,0,0
+aortic valve disease,8,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic cardiomyopathy,5,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular cardiomyopathy,1,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular dysplasia,40,34,22,12894,default_universe,,0,0,0,0
+arterial dissection,4,0,0,12894,default_universe,,0,0,0,0
+atrial fibrillation,23,25,13,12894,default_universe,,0,0,0,0
+atrial myxoma,2,1,1,12894,default_universe,,0,0,0,0
+atrial septal defect,4,2,2,12894,default_universe,,0,0,0,0
+atrioventricular block,1,0,0,12894,default_universe,,0,0,0,0
+atrioventricular septal defect,3,4,2,12894,default_universe,,0,0,0,0
+brugada syndrome,11,2,1,12894,default_universe,,0,0,0,0
+cardiac and endocrine syndrome,11,46,21,12894,default_universe,,0,0,0,0
+cardiac arrest,5,8,5,12894,default_universe,,0,0,0,0
+cardiac arrhythmia,67,147,55,12894,default_universe,,0,0,0,0
+cardiac channelopathy,5,1,1,12894,default_universe,,0,0,0,0
+cardiac conduction disease,3,0,0,12894,default_universe,,0,0,0,0
+cardiac conduction disorder,15,12,12,12894,default_universe,,0,0,0,0
+cardiac hypertrophy,1,5,5,12894,default_universe,,0,0,0,0
+cardiac rhabdomyoma,1,2,2,12894,default_universe,,0,0,0,0
+cardiofaciocutaneous syndrome,2,0,0,12894,default_universe,,0,0,0,0
+cardiomyopathy,81,240,75,12894,default_universe,,1,0,0,1
+cardiovascular disease,5,0,0,12894,default_universe,,0,0,0,0
+cardiovascular malformation,3,0,0,12894,default_universe,,0,0,0,0
+catecholaminergic polymorphic ventricular tachycardia,15,24,22,12894,default_universe,,0,0,0,0
+cerebellar ataxia with cardiac conduction defects,1,0,0,12894,default_universe,,0,0,0,0
+cervical artery dissection,1,0,0,12894,default_universe,,0,0,0,0
+congenital heart defect,4,12,12,12894,default_universe,,0,0,0,0
+congenital heart defects,2,8,8,12894,default_universe,,0,0,0,0
+congenital heart disease,10,9,9,12894,default_universe,,0,0,0,0
+congenital heart malformation,1,0,0,12894,default_universe,,0,0,0,0
+congestive heart failure,1,0,0,12894,default_universe,,0,0,0,0
+dilated cardiomyopathy,77,338,71,12894,default_universe,,0,0,0,0
+dilated cardiomyopathy and hypergonadotropic hypogonadism,1,16,16,12894,default_universe,,0,0,0,0
+heart block,10,4,2,12894,default_universe,,0,0,0,0
+heart hand syndrome,11,46,21,12894,default_universe,,0,0,0,0
+hypertension,3,62,50,12894,default_universe,,0,0,0,0
+hypertrophic cardiomyopathy,64,195,73,12894,default_universe,,0,0,0,0
+left ventricular noncompaction,18,26,7,12894,default_universe,,0,0,0,0
+long qt syndrome,33,179,29,12894,default_universe,,17,4,1,22
+mitochondrial hypertrophic cardiomyopathy,2,0,0,12894,default_universe,,0,0,0,0
+myocarditis,3,14,14,12894,default_universe,,0,0,0,0
+pulmonary arterial hypertension,25,102,39,12894,default_universe,,4,1,2,7
+pulmonary hypertension,37,159,52,12894,default_universe,,3,2,1,6
+pulmonary valve stenosis,3,0,0,12894,default_universe,,0,0,0,0
+restrictive cardiomyopathy,3,0,0,12894,default_universe,,0,0,0,0
+short qt syndrome,22,53,28,12894,default_universe,,19,4,1,24
+sudden cardiac arrest,2,0,0,12894,default_universe,,0,0,0,0
+sudden cardiac death,4,0,0,12894,default_universe,,0,0,0,0
+thoracic aortic aneurysm,30,17,10,12894,default_universe,,0,0,0,0
+valvular heart disease,6,8,8,12894,default_universe,,0,0,0,0
+ventricular arrhythmia,4,19,11,12894,default_universe,,0,0,0,0
+ventricular fibrillation,10,2,1,12894,default_universe,,0,0,0,0
+ventricular septal defect,4,27,27,12894,default_universe,,0,0,0,0

@@ -1,0 +1,54 @@
+group_label,sv_count,top_pairs,top_genes,bg_genes,go_background_mode,go_universe_gene_count,go_bp_terms,go_mf_terms,go_cc_terms,go_total
+acute lymphoblastic leukemia,4,25,24,12894,default_universe,,0,0,0,0
+acute lymphoid leukemia,8,32,10,12894,default_universe,,0,0,0,0
+acute myeloid leukemia,25,95,59,12894,default_universe,,1,3,0,4
+acute promyelocytic leukemia,1,0,0,12894,default_universe,,0,0,0,0
+aneurysm osteoarthritis syndrome,6,7,7,12894,default_universe,,0,0,0,0
+arthritis,1,0,0,12894,default_universe,,0,0,0,0
+autoimmune disease,1,0,0,12894,default_universe,,0,0,0,0
+autoimmune hemolytic anemia,1,0,0,12894,default_universe,,0,0,0,0
+autoimmune lymphoproliferative syndrome,3,16,16,12894,default_universe,,0,0,0,0
+autoimmune thrombocytopenia,1,0,0,12894,default_universe,,0,0,0,0
+autoinflammatory and immunodeficiency disorders,1,0,0,12894,default_universe,,0,0,0,0
+autoinflammatory disease,12,49,21,12894,default_universe,,0,0,1,1
+autoinflammatory syndrome,1,0,0,12894,default_universe,,0,0,0,0
+b cell lymphoblastic leukemia lymphoma,6,8,3,12894,default_universe,,0,0,0,0
+bone marrow failure syndrome,14,56,35,12894,default_universe,,9,5,0,14
+chronic lymphocytic leukemia,8,48,35,12894,default_universe,,9,5,0,14
+combined immunodeficiency,11,0,0,12894,default_universe,,0,0,0,0
+common variable immunodeficiency,5,2,1,12894,default_universe,,0,0,0,0
+deafness lymphedema leukemia syndrome,7,21,16,12894,default_universe,,0,0,0,0
+ectodermal dysplasia and immunodeficiency,1,0,0,12894,default_universe,,0,0,0,0
+fanconi anemia,143,355,95,12894,default_universe,,2,0,2,4
+fanconi anemia complementation group d1,47,25,8,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group e,1,5,5,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group j,19,4,2,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group l,1,0,0,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group o,23,37,13,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group p,5,4,3,12894,default_universe,,0,0,0,0
+fanconi anemia complementation group q,3,0,0,12894,default_universe,,0,0,0,0
+growth hormone insensitivity syndrome with immune dysregulation,1,0,0,12894,default_universe,,0,0,0,0
+hodgkin lymphoma,4,34,17,12894,default_universe,,0,0,0,0
+immune thrombocytopenia,1,0,0,12894,default_universe,,0,0,0,0
+immunodeficiency,23,32,30,12894,default_universe,,0,2,0,2
+immunodeficiency disorder,1,0,0,12894,default_universe,,0,0,0,0
+immunodeficiency syndrome,2,0,0,12894,default_universe,,0,0,0,0
+immunoglobulin a deficiency,1,0,0,12894,default_universe,,0,0,0,0
+increased risk to develop myelodysplastic syndrome acute myeloid leukemia or chronic myelomonocytic leukemia,1,0,0,12894,default_universe,,0,0,0,0
+inflammatory bowel disease,3,7,7,12894,default_universe,,0,0,0,0
+leukemia,3,0,0,12894,default_universe,,0,0,0,0
+lupus erythematosus,5,0,0,12894,default_universe,,0,0,0,0
+lymphoid neoplasm,1,0,0,12894,default_universe,,0,0,0,0
+lymphoma,6,43,38,12894,default_universe,,5,5,0,10
+microcephaly and immunodeficiency syndrome,9,32,10,12894,default_universe,,0,0,0,0
+multisystem inflammatory syndrome in children,1,0,0,12894,default_universe,,0,0,0,0
+myelofibrosis with myeloid metaplasia,1,0,0,12894,default_universe,,0,0,0,0
+myeloid leukemia,44,45,13,12894,default_universe,,0,0,0,0
+primary immunodeficiency,22,36,36,12894,default_universe,,0,0,0,0
+primary immunodeficiency disease,7,21,16,12894,default_universe,,0,0,0,0
+primary immunodeficiency with endocrine features,1,0,0,12894,default_universe,,0,0,0,0
+schimke immuno osseous dysplasia,5,4,2,12894,default_universe,,0,0,0,0
+severe combined immunodeficiency,19,28,13,12894,default_universe,,0,0,0,0
+systemic autoimmune disease,3,39,22,12894,default_universe,,0,0,0,0
+systemic lupus erythematosus,1,0,0,12894,default_universe,,0,0,0,0
+t cell prolymphocytic leukemia,1,0,0,12894,default_universe,,0,0,0,0

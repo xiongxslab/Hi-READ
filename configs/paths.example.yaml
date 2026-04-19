@@ -1,0 +1,25 @@
+# Hi-READ release path configuration
+# Copy this file to a local machine-specific config and set HIREAD_PATHS_CONFIG=/abs/path/to/that-file
+# Environment variables override values in this file.
+
+release_assets_root: ../release_assets
+
+# Model training/inference inputs
+data_root: /abs/path/to/corigami_data_all
+model_root_stage1: /abs/path/to/RRT_last_models
+model_root_stage2: /abs/path/to/RRTdiffusion
+hg38_chrom_sizes: /abs/path/to/hg38.chrom.sizes
+
+# External tools
+fithichip_dir: /abs/path/to/FitHiChIP
+
+# Figure 4 / loops cluster
+loops_cluster_colors_json: ../workflows/loops_cluster/colors.json
+
+# Optional benchmark roots
+# HIREAD_LOOP_BENCH_INPUT_ROOT can point at a root containing:
+#   real/
+#   corigami/
+#   hicdiffusion/
+#   RRTdiffusion/
+#   macs2_output/

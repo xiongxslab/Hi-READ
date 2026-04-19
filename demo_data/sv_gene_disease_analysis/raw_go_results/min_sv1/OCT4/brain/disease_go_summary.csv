@@ -1,0 +1,231 @@
+group_label,sv_count,top_pairs,top_genes,bg_genes,go_background_mode,go_universe_gene_count,go_bp_terms,go_mf_terms,go_cc_terms,go_total
+absence epilepsy,2,0,0,12894,default_universe,,0,0,0,0
+acute infectious encephalopathy,3,10,10,12894,default_universe,,0,0,0,0
+adrenal cortex cancer,12,29,26,12894,default_universe,,0,1,0,1
+adrenocortical adenoma,2,8,8,12894,default_universe,,0,0,0,0
+adrenocortical carcinoma hereditary,9,26,19,12894,default_universe,,0,0,0,0
+adrenocortical carcinoma pediatric,2,8,4,12894,default_universe,,0,0,0,0
+alzheimer disease,1,0,0,12894,default_universe,,0,0,0,0
+amyotrophic lateral sclerosis,19,46,14,12894,default_universe,,0,0,0,0
+aniridia cerebellar ataxia intellectual disability syndrome,4,2,2,12894,default_universe,,0,0,0,0
+ataxia oculomotor apraxia,1,0,0,12894,default_universe,,0,0,0,0
+ataxia telangiectasia,43,30,7,12894,default_universe,,0,0,0,0
+ataxia telangiectasia like disorder type 1,2,9,9,12894,default_universe,,0,0,0,0
+ataxia telangiectasia syndrome,2,9,9,12894,default_universe,,0,0,0,0
+ataxia with oculomotor apraxia,1,0,0,12894,default_universe,,0,0,0,0
+ataxia with vitamin e deficiency,1,0,0,12894,default_universe,,0,0,0,0
+atp1a3 related neurological disorders,2,1,1,12894,default_universe,,0,0,0,0
+autism spectrum disorder,32,26,19,12894,default_universe,,0,0,0,0
+autonomic neuropathy,5,1,1,12894,default_universe,,0,0,0,0
+autosomal dominant nonsyndromic hearing loss,1,0,0,12894,default_universe,,0,0,0,0
+axonal neuropathy,4,0,0,12894,default_universe,,0,0,0,0
+benign familial infantile seizures,9,71,20,12894,default_universe,,0,0,0,0
+brain atrophy,2,9,9,12894,default_universe,,0,0,0,0
+brain cancer,4,1,1,12894,default_universe,,0,0,0,0
+brain lung thyroid syndrome,2,3,3,12894,default_universe,,0,0,0,0
+brain malformation,6,6,6,12894,default_universe,,0,0,0,0
+brain malformations,9,8,7,12894,default_universe,,0,0,0,0
+brain neoplasm,13,20,20,12894,default_universe,,0,0,0,0
+brain tumor,9,44,19,12894,default_universe,,0,0,0,0
+brain tumor polyposis syndrome,1,3,3,12894,default_universe,,0,0,0,0
+brainstem hypoplasia,1,0,0,12894,default_universe,,0,0,0,0
+carcinoma adrenocortical androgen secreting,1,4,4,12894,default_universe,,0,0,0,0
+cerebellar ataxia,11,18,18,12894,default_universe,,0,0,0,0
+cerebellar ataxia syndrome,2,1,1,12894,default_universe,,0,0,0,0
+cerebellar ataxia with cardiac conduction defects,1,0,0,12894,default_universe,,0,0,0,0
+cerebral arteriovenous malformation,2,6,6,12894,default_universe,,0,0,0,0
+cerebral atrophy,1,0,0,12894,default_universe,,0,0,0,0
+cerebral autosomal dominant arteriopathy,2,0,0,12894,default_universe,,0,0,0,0
+cerebral calcification,1,8,8,12894,default_universe,,0,0,0,0
+cerebral cavernous malformation,14,20,6,12894,default_universe,,0,0,0,0
+cerebral folate deficiency,1,0,0,12894,default_universe,,0,0,0,0
+cerebral hypoplasia,1,0,0,12894,default_universe,,0,0,0,0
+cerebral palsy,10,2,2,12894,default_universe,,0,0,0,0
+cerebral small vessel disease,2,0,0,12894,default_universe,,0,0,0,0
+cerebral visual impairment,2,7,7,12894,default_universe,,0,0,0,0
+cerebral white matter disease,1,0,0,12894,default_universe,,0,0,0,0
+cerebroretinal microangiopathy with calcifications and cysts,1,0,0,12894,default_universe,,0,0,0,0
+childhood absence epilepsy,2,0,0,12894,default_universe,,0,0,0,0
+cobblestone lissencephaly,2,7,4,12894,default_universe,,0,0,0,0
+coenzyme q10 deficiency spinocerebellar ataxia,1,0,0,12894,default_universe,,0,0,0,0
+cone rod dystrophy with hearing loss,1,1,1,12894,default_universe,,0,0,0,0
+congenital brain malformation,1,3,3,12894,default_universe,,0,0,0,0
+congenital malformation of the optic nerve,4,2,2,12894,default_universe,,0,0,0,0
+congenital muscular dystrophy dystroglycanopathy type a with brain and eye anomalies,5,6,3,12894,default_universe,,0,0,0,0
+congenital muscular dystrophy dystroglycanopathy with brain and eye anomalies,1,0,0,12894,default_universe,,0,0,0,0
+congenital muscular dystrophy with dystroglycanopathy and brain anomalies,2,0,0,12894,default_universe,,0,0,0,0
+congenital neuro ophthalmic anomaly,1,1,1,12894,default_universe,,0,0,0,0
+congenital neurodevelopmental disorder with ichthyosis,2,0,0,12894,default_universe,,0,0,0,0
+congenital neurodevelopmental encephalopathy,1,0,0,12894,default_universe,,0,0,0,0
+congenital neurodevelopmental malformation syndrome,3,0,0,12894,default_universe,,0,0,0,0
+congenital neuromuscular disease,6,1,1,12894,default_universe,,0,0,0,0
+cortical malformation,1,2,2,12894,default_universe,,0,0,0,0
+dementia,2,0,0,12894,default_universe,,0,0,0,0
+developmental and epileptic encephalopathies,6,0,0,12894,default_universe,,0,0,0,0
+developmental and epileptic encephalopathy,79,132,47,12894,default_universe,,0,1,3,4
+distal hereditary motor neuronopathy type 2b,4,0,0,12894,default_universe,,0,0,0,0
+dopa responsive dystonia,10,6,3,12894,default_universe,,0,0,0,0
+drug induced neuromuscular disorder,1,1,1,12894,default_universe,,0,0,0,0
+dystonia,23,54,30,12894,default_universe,,0,0,0,0
+encephalocele,1,0,0,12894,default_universe,,0,0,0,0
+encephalopathy,1,0,0,12894,default_universe,,0,0,0,0
+endocrine gastrointestinal and neurological disorder,1,3,3,12894,default_universe,,0,0,0,0
+epilepsy,81,167,58,12894,default_universe,,0,1,4,5
+epilepsy and movement disorder syndrome,1,0,0,12894,default_universe,,0,0,0,0
+epilepsy and movement disorders,6,65,15,12894,default_universe,,0,0,0,0
+epilepsy syndrome,7,15,15,12894,default_universe,,0,0,0,0
+epilepsy syndromes,3,0,0,12894,default_universe,,0,0,0,0
+epileptic encephalopathy,52,76,59,12894,default_universe,,0,1,2,3
+epileptic spasms,1,2,2,12894,default_universe,,0,0,0,0
+episodic ataxia,14,34,16,12894,default_universe,,0,0,0,0
+familial hemiplegic migraine,22,39,20,12894,default_universe,,9,9,8,26
+febrile seizure,7,52,15,12894,default_universe,,0,0,0,0
+febrile seizures,6,0,0,12894,default_universe,,0,0,0,0
+focal cortical dysplasia,29,29,22,12894,default_universe,,0,0,0,0
+focal epilepsy,9,1,1,12894,default_universe,,0,0,0,0
+frontotemporal dementia,4,5,5,12894,default_universe,,0,0,0,0
+generalized epilepsy,1,3,3,12894,default_universe,,0,0,0,0
+genetic hearing loss,7,5,5,12894,default_universe,,0,0,0,0
+genetic hearing loss and thyroid disorder,1,8,8,12894,default_universe,,0,0,0,0
+genetic neurodevelopmental disorder,13,6,5,12894,default_universe,,0,0,0,0
+genetic syndrome with intellectual disability,8,10,7,12894,default_universe,,0,0,0,0
+glioma,69,57,33,12894,default_universe,,0,0,0,0
+hearing impairment,35,37,31,12894,default_universe,,0,0,1,1
+hearing loss,42,103,43,12894,default_universe,,2,0,1,3
+hemimegalencephaly,1,0,0,12894,default_universe,,0,0,0,0
+hereditary ataxia,4,1,1,12894,default_universe,,0,0,0,0
+hereditary axonal neuropathy,1,0,0,12894,default_universe,,0,0,0,0
+hereditary hearing loss,63,52,35,12894,default_universe,,0,0,1,1
+hereditary motor and sensory neuropathy,2,4,4,12894,default_universe,,0,0,0,0
+hereditary motor neuronopathy,1,0,0,12894,default_universe,,0,0,0,0
+hereditary motor neuropathy,8,25,21,12894,default_universe,,0,0,0,0
+hereditary neuropathy,14,6,4,12894,default_universe,,0,0,0,0
+hereditary paraganglioma syndrome,4,5,5,12894,default_universe,,0,0,0,0
+hereditary peripheral neuropathy,4,0,0,12894,default_universe,,0,0,0,0
+hereditary pheochromocytoma and paraganglioma,25,10,9,12894,default_universe,,0,0,0,0
+hereditary sensory and autonomic neuropathies,2,1,1,12894,default_universe,,0,0,0,0
+hereditary sensory and autonomic neuropathy,1,3,3,12894,default_universe,,0,0,0,0
+hereditary spastic paraplegia,68,86,41,12894,default_universe,,0,4,0,4
+holoprosencephaly,4,1,1,12894,default_universe,,0,0,0,0
+idiopathic generalized epilepsy,1,0,0,12894,default_universe,,0,0,0,0
+infantile cortical hyperostosis,3,0,0,12894,default_universe,,0,0,0,0
+inherited retinal disease,12,14,8,12894,default_universe,,0,0,0,0
+inherited retinal dystrophy,5,2,2,12894,default_universe,,0,0,0,0
+intellectual disability,174,256,184,12894,default_universe,,2,0,0,2
+intellectual disability syndrome,6,4,3,12894,default_universe,,0,0,0,0
+intellectual disability with seizures,2,4,4,12894,default_universe,,0,0,0,0
+leukoencephalopathy,4,13,13,12894,default_universe,,0,0,0,0
+leukoencephalopathy with brain stem and spinal cord involvement and lactate elevation,1,1,1,12894,default_universe,,0,0,0,0
+lewy body dementia,5,0,0,12894,default_universe,,0,0,0,0
+lissencephaly,7,6,3,12894,default_universe,,0,0,0,0
+lysosomal storage disease neurodegenerative disease,3,0,0,12894,default_universe,,0,0,0,0
+macrocephaly autism syndrome,15,7,7,12894,default_universe,,0,0,0,0
+malformation of cortical development,2,1,1,12894,default_universe,,0,0,0,0
+malignant glioma,1,0,0,12894,default_universe,,0,0,0,0
+medulloblastoma,60,33,16,12894,default_universe,,0,0,0,0
+metabolic encephalopathy,2,0,0,12894,default_universe,,0,0,0,0
+metabolic leukoencephalopathy,1,0,0,12894,default_universe,,0,0,0,0
+metastatic pancreatic neuroendocrine tumours,6,29,22,12894,default_universe,,0,0,0,0
+microcephaly,38,48,39,12894,default_universe,,0,1,2,3
+microcephaly and immunodeficiency syndrome,9,42,9,12894,default_universe,,0,0,0,0
+microcephaly capillary malformation syndrome,2,0,0,12894,default_universe,,0,0,0,0
+microcephaly chorioretinopathy syndrome,1,0,0,12894,default_universe,,0,0,0,0
+microcephaly syndrome,6,3,3,12894,default_universe,,0,0,0,0
+microcephaly with or without chorioretinopathy lymphedema or intellectual disability syndrome,1,0,0,12894,default_universe,,0,0,0,0
+microcornea myopic chorioretinal atrophy,1,0,0,12894,default_universe,,0,0,0,0
+migraine,11,37,26,12894,default_universe,,14,1,4,19
+mitochondrial encephalomyopathy,6,9,9,12894,default_universe,,0,0,0,0
+mitochondrial encephalopathy,2,0,0,12894,default_universe,,0,0,0,0
+mitochondrial hepatocerebral disease,1,0,0,12894,default_universe,,0,0,0,0
+mononeuropathy of the median nerve,5,0,0,12894,default_universe,,0,0,0,0
+motor neuron disease,7,28,19,12894,default_universe,,0,0,0,0
+muscle eye brain disease,4,2,2,12894,default_universe,,0,0,0,0
+myoclonic dystonia,7,0,0,12894,default_universe,,0,0,0,0
+myopia high with cataract and vitreoretinal degeneration,2,9,8,12894,default_universe,,0,0,0,0
+neuro ophthalmic disorder,1,8,8,12894,default_universe,,0,0,0,0
+neuro ophthalmologic and metabolic disorder,1,11,11,12894,default_universe,,0,0,0,0
+neuro ophthalmologic disorder,3,7,7,12894,default_universe,,0,0,0,0
+neuro ophthalmological syndrome,1,1,1,12894,default_universe,,0,0,0,0
+neuroacanthocytosis,4,0,0,12894,default_universe,,0,0,0,0
+neuroblastoma,9,10,10,12894,default_universe,,0,0,0,0
+neurocutaneous neoplasia,4,0,0,12894,default_universe,,0,0,0,0
+neurocutaneous syndrome,3,0,0,12894,default_universe,,0,0,0,0
+neurodegeneration with brain iron accumulation,2,0,0,12894,default_universe,,0,0,0,0
+neurodegeneration with brain iron accumulation type 1,2,0,0,12894,default_universe,,0,0,0,0
+neurodegenerative disease,14,12,12,12894,default_universe,,0,0,0,0
+neurodegenerative disease with lipodystrophy,1,0,0,12894,default_universe,,0,0,0,0
+neurodegenerative disorder,22,8,8,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with cerebellar ataxia,3,1,1,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with cerebellar atrophy,1,2,2,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with microcephaly and seizures,1,0,0,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with pancytopenia,1,0,0,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with spasticity and epilepsy,1,0,0,12894,default_universe,,0,0,0,0
+neurodevelopmental disorder with structural brain anomalies,1,1,1,12894,default_universe,,0,0,0,0
+neurodevelopmental movement disorder,2,0,0,12894,default_universe,,0,0,0,0
+neurodevelopmental syndrome,14,3,3,12894,default_universe,,0,0,0,0
+neuroendocrine neoplasm,3,15,12,12894,default_universe,,0,0,0,0
+neuroendocrine syndrome,1,0,0,12894,default_universe,,0,0,0,0
+neuroendocrine tumor,8,2,1,12894,default_universe,,0,0,0,0
+neurofibroma,4,2,2,12894,default_universe,,0,0,0,0
+neurofibromatosis,41,26,9,12894,default_universe,,0,0,0,0
+neurofibromatosis noonan syndrome,43,26,9,12894,default_universe,,0,0,0,0
+neurofibromatosis type 1,44,26,9,12894,default_universe,,0,0,0,0
+neuromuscular disease,5,17,12,12894,default_universe,,0,0,0,0
+neuromuscular disorder,8,11,11,12894,default_universe,,0,0,0,0
+neuronal ceroid lipofuscinosis,37,46,17,12894,default_universe,,0,0,0,0
+neuronal migration disorder,2,0,0,12894,default_universe,,0,0,0,0
+neuropathic arthropathy,1,0,0,12894,default_universe,,0,0,0,0
+neuropathic pain,1,3,3,12894,default_universe,,0,0,0,0
+nonsyndromic hearing loss,21,14,11,12894,default_universe,,0,0,0,0
+opa1 related optic atrophy,1,4,4,12894,default_universe,,0,0,0,0
+optic atrophy,11,8,4,12894,default_universe,,0,0,0,0
+optic atrophy syndrome,1,0,0,12894,default_universe,,0,0,0,0
+optic nerve aplasia,1,0,0,12894,default_universe,,0,0,0,0
+optic nerve coloboma,3,2,2,12894,default_universe,,0,0,0,0
+optic nerve hypoplasia,1,4,4,12894,default_universe,,0,0,0,0
+osteoporosis pseudoglioma syndrome,4,0,0,12894,default_universe,,0,0,0,0
+paraganglioma,24,13,7,12894,default_universe,,0,0,0,0
+parkinson disease,27,10,10,12894,default_universe,,0,0,0,0
+parkinson s disease,7,0,0,12894,default_universe,,0,0,0,0
+parkinsonism,6,0,0,12894,default_universe,,0,0,0,0
+peripheral axonal neuropathy,5,1,1,12894,default_universe,,0,0,0,0
+peripheral neuropathy,25,71,23,12894,default_universe,,0,1,0,1
+pigmented nodular adrenocortical disease primary,2,1,1,12894,default_universe,,0,0,0,0
+plexiform neurofibroma,5,4,2,12894,default_universe,,0,0,0,0
+polycystic lipomembranous osteodysplasia with sclerosing leukoencephalopathy,1,0,0,12894,default_universe,,0,0,0,0
+polyneuropathy,5,19,19,12894,default_universe,,0,0,0,0
+primary microcephaly,8,4,2,12894,default_universe,,0,0,0,0
+progressive myoclonic epilepsy,5,1,1,12894,default_universe,,0,0,0,0
+pyridoxine dependent epilepsy,1,1,1,12894,default_universe,,0,0,0,0
+renal cortical cysts,1,1,1,12894,default_universe,,0,0,0,0
+renal retinal syndrome,2,13,13,12894,default_universe,,0,0,0,0
+retinal degeneration,10,4,4,12894,default_universe,,0,0,0,0
+retinal disease,10,2,2,12894,default_universe,,0,0,0,0
+retinal diseases,4,0,0,12894,default_universe,,0,0,0,0
+retinal disorder,2,0,0,12894,default_universe,,0,0,0,0
+retinal dystrophy,209,210,123,12894,default_universe,,7,0,2,9
+retinal macular dystrophy,6,8,4,12894,default_universe,,0,0,0,0
+retinal pigment epithelial atrophy,3,4,4,12894,default_universe,,0,0,0,0
+schizophrenia,3,2,1,12894,default_universe,,0,0,0,0
+scn1a related neurological disorder,2,2,2,12894,default_universe,,0,0,0,0
+scn2a related neurodevelopmental disorder,1,1,1,12894,default_universe,,0,0,0,0
+seizure disorder,71,160,97,12894,default_universe,,0,1,3,4
+seizure disorders,3,1,1,12894,default_universe,,0,0,0,0
+seizures scoliosis macrocephaly syndrome,5,1,1,12894,default_universe,,0,0,0,0
+sensorineural hearing loss,13,15,15,12894,default_universe,,0,0,0,0
+sensory ataxic neuropathy,3,13,11,12894,default_universe,,0,0,0,0
+short stature optic atrophy pelger hu t anomaly syndrome,2,0,0,12894,default_universe,,0,0,0,0
+spastic ataxia,11,12,12,12894,default_universe,,0,0,0,0
+spastic cerebral palsy,4,0,0,12894,default_universe,,0,0,0,0
+spastic paraplegia,39,23,10,12894,default_universe,,0,0,0,0
+spinal muscular atrophy and progressive myoclonic epilepsy,1,0,0,12894,default_universe,,0,0,0,0
+spinocerebellar ataxia,30,52,28,12894,default_universe,,0,0,2,2
+spinocerebellar ataxia with neuropathy,1,0,0,12894,default_universe,,0,0,0,0
+syndromic intellectual disability,5,1,1,12894,default_universe,,0,0,0,0
+syndromic retinal dystrophy,1,0,0,12894,default_universe,,0,0,0,0
+temporal lobe epilepsy,3,2,2,12894,default_universe,,0,0,0,0
+thiamine pyrophosphokinase deficiency encephalopathy,3,0,0,12894,default_universe,,0,0,0,0
+torsion dystonia,1,0,0,12894,default_universe,,0,0,0,0
+vascular dementia,5,4,3,12894,default_universe,,0,0,0,0
+vitreoretinal disorders,2,5,5,12894,default_universe,,0,0,0,0
+vitreoretinal dystrophy,3,19,19,12894,default_universe,,0,0,0,0

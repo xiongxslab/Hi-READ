@@ -1,0 +1,62 @@
+group_label,sv_count,top_pairs,top_genes,bg_genes,go_background_mode,go_universe_gene_count,go_bp_terms,go_mf_terms,go_cc_terms,go_total
+aneurysm osteoarthritis syndrome,6,2,2,12894,default_universe,,0,0,0,0
+aortic aneurysm,11,19,12,12894,default_universe,,0,0,0,0
+aortic aneurysm and dissection,69,46,26,12894,default_universe,,0,0,0,0
+aortic aneurysm syndrome,21,27,9,12894,default_universe,,0,0,0,0
+aortic disease,9,12,12,12894,default_universe,,0,0,0,0
+aortic dissection,7,16,9,12894,default_universe,,0,0,0,0
+aortic regurgitation,2,0,0,12894,default_universe,,0,0,0,0
+aortic stenosis,3,0,0,12894,default_universe,,0,0,0,0
+aortic valve disease,8,1,1,12894,default_universe,,0,0,0,0
+arrhythmogenic cardiomyopathy,5,4,2,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular cardiomyopathy,1,0,0,12894,default_universe,,0,0,0,0
+arrhythmogenic right ventricular dysplasia,40,11,3,12894,default_universe,,0,0,0,0
+arterial dissection,4,0,0,12894,default_universe,,0,0,0,0
+atrial fibrillation,23,0,0,12894,default_universe,,0,0,0,0
+atrial myxoma,2,0,0,12894,default_universe,,0,0,0,0
+atrial septal defect,4,4,4,12894,default_universe,,0,0,0,0
+atrioventricular block,1,0,0,12894,default_universe,,0,0,0,0
+atrioventricular septal defect,3,0,0,12894,default_universe,,0,0,0,0
+brugada syndrome,11,0,0,12894,default_universe,,0,0,0,0
+cardiac and endocrine syndrome,11,0,0,12894,default_universe,,0,0,0,0
+cardiac arrest,5,0,0,12894,default_universe,,0,0,0,0
+cardiac arrhythmia,67,17,3,12894,default_universe,,0,0,0,0
+cardiac channelopathy,5,0,0,12894,default_universe,,0,0,0,0
+cardiac conduction disease,3,0,0,12894,default_universe,,0,0,0,0
+cardiac conduction disorder,15,5,3,12894,default_universe,,0,0,0,0
+cardiac hypertrophy,1,0,0,12894,default_universe,,0,0,0,0
+cardiac rhabdomyoma,1,0,0,12894,default_universe,,0,0,0,0
+cardiofaciocutaneous syndrome,2,0,0,12894,default_universe,,0,0,0,0
+cardiomyopathy,81,29,19,12894,default_universe,,0,0,0,0
+cardiovascular disease,5,0,0,12894,default_universe,,0,0,0,0
+cardiovascular malformation,3,0,0,12894,default_universe,,0,0,0,0
+catecholaminergic polymorphic ventricular tachycardia,15,1,1,12894,default_universe,,0,0,0,0
+cerebellar ataxia with cardiac conduction defects,1,0,0,12894,default_universe,,0,0,0,0
+cervical artery dissection,1,0,0,12894,default_universe,,0,0,0,0
+congenital heart defect,4,14,14,12894,default_universe,,0,0,0,0
+congenital heart defects,2,2,2,12894,default_universe,,0,0,0,0
+congenital heart disease,10,8,8,12894,default_universe,,0,0,0,0
+congenital heart malformation,1,0,0,12894,default_universe,,0,0,0,0
+congestive heart failure,1,0,0,12894,default_universe,,0,0,0,0
+dilated cardiomyopathy,77,66,25,12894,default_universe,,3,2,0,5
+dilated cardiomyopathy and hypergonadotropic hypogonadism,1,0,0,12894,default_universe,,0,0,0,0
+heart block,10,0,0,12894,default_universe,,0,0,0,0
+heart hand syndrome,11,0,0,12894,default_universe,,0,0,0,0
+hypertension,3,0,0,12894,default_universe,,0,0,0,0
+hypertrophic cardiomyopathy,64,30,23,12894,default_universe,,3,2,0,5
+left ventricular noncompaction,18,4,2,12894,default_universe,,0,0,0,0
+long qt syndrome,33,0,0,12894,default_universe,,0,0,0,0
+mitochondrial hypertrophic cardiomyopathy,2,0,0,12894,default_universe,,0,0,0,0
+myocarditis,3,0,0,12894,default_universe,,0,0,0,0
+pulmonary arterial hypertension,25,33,10,12894,default_universe,,0,0,0,0
+pulmonary hypertension,37,73,20,12894,default_universe,,1,0,0,1
+pulmonary valve stenosis,3,0,0,12894,default_universe,,0,0,0,0
+restrictive cardiomyopathy,3,0,0,12894,default_universe,,0,0,0,0
+short qt syndrome,22,0,0,12894,default_universe,,0,0,0,0
+sudden cardiac arrest,2,0,0,12894,default_universe,,0,0,0,0
+sudden cardiac death,4,0,0,12894,default_universe,,0,0,0,0
+thoracic aortic aneurysm,30,27,9,12894,default_universe,,0,0,0,0
+valvular heart disease,6,3,3,12894,default_universe,,0,0,0,0
+ventricular arrhythmia,4,0,0,12894,default_universe,,0,0,0,0
+ventricular fibrillation,10,0,0,12894,default_universe,,0,0,0,0
+ventricular septal defect,4,5,5,12894,default_universe,,0,0,0,0
